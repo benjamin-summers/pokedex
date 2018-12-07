@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Form from './Form';
+import Lights from './Lights';
+import '../styles/main.css';
 
 export default class App extends Component {
     state = { 
@@ -8,6 +11,8 @@ export default class App extends Component {
         shinyBack: '',
         front: null,
         back: null,
+        term: '',
+        lights: null
      }
 
     componentDidMount() {
@@ -19,6 +24,7 @@ export default class App extends Component {
             shinyFront: data.sprites.front_shiny,
             shinyBack: data.sprites.back_shiny,
             src: data,
+            lights: 'green'
          }))
     }
 
@@ -45,16 +51,40 @@ export default class App extends Component {
         })
     }
 
-    render() {
-        console.log(this.state.src);
+    Search = () => {
+
+        let poke = this.state.term;
+
+        if(poke !== '') {
+            fetch(`https://pokeapi.co/api/v2/pokemon/${poke.toLowerCase()}/`)
+            .then(res => res.json())
+            .then(data => this.setState({ 
+                imgFront: data.sprites.front_default,
+                imgBack: data.sprites.back_default,
+                shinyFront: data.sprites.front_shiny,
+                shinyBack: data.sprites.back_shiny,
+                src: data,
+                lights: 'red'
+            }))
+        }
+    }
+
+    render() { 
         return (
-            <div>
-                <img src={!this.state.front ? this.state.imgFront : this.state.front} alt={this.state.front} />
-                <img src={!this.state.back ? this.state.imgBack : this.state.back} alt={this.state.back} />
-                
-                <div>
-                    <button onClick={this.Default.bind(this)}>default</button>
-                    <button onClick={this.Shiny.bind(this)}>shiny</button>
+            <div className="container">
+                <Form poke={this.state.term} Click={this.Search.bind(this)} Change={e => {this.setState({term: e.target.value})}} Focus={() => {this.setState({term:''})}} />
+                <div className="pokes-screen">
+                    <div className="pokes">
+                        <img src={!this.state.front ? this.state.imgFront : this.state.front} alt={this.state.front} />
+                        <img src={!this.state.back ? this.state.imgBack : this.state.back} alt={this.state.back} />
+                    </div>
+                    <div className="buttons">
+                        <button onClick={this.Default.bind(this)}>default</button>
+                        <button onClick={this.Shiny.bind(this)}>shiny</button>
+                    </div>
+                    <div>
+                        <Lights className={this.state.lights} />
+                    </div>
                 </div>
             </div>
         )

@@ -1,0 +1,28 @@
+div.form {
+    width: 75%;
+    padding: 0;
+    margin: 0 0 0 15%;
+}
+
+div.form input {
+    width: 65%;
+}
+
+div.pokes-screen {
+    height: 300px;
+    background: url('https://images-na.ssl-images-amazon.com/images/I/3145-OEi7kL.jpg') center no-repeat;
+}
+
+div.pokes {
+    text-align: center;
+}
+
+div.pokes img {
+    height: 100px;
+    width: 100px;
+    margin-top: 50px;
+}
+
+div.buttons {
+    text-align: center;
+}
