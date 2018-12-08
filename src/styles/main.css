@@ -26,3 +26,11 @@ div.pokes img {
 div.buttons {
     text-align: center;
 }
+
+div.buttons button:nth-child(1) {
+    background-color: green;
+}
+
+div.buttons button:nth-child(2) {
+    background-color: red;
+}
