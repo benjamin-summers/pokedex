@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form';
 import '../styles/main.css';
+import Info from './Info';
 
 export default class App extends Component {
     state = { 
@@ -10,8 +11,10 @@ export default class App extends Component {
         shinyBack: '',
         front: null,
         back: null,
-        term: '',
-        lights: ''
+        name: '',
+        abil: [],
+        info: [],
+        term: ''
      }
 
     componentDidMount() {
@@ -22,6 +25,8 @@ export default class App extends Component {
             imgBack: data.sprites.back_default,
             shinyFront: data.sprites.front_shiny,
             shinyBack: data.sprites.back_shiny,
+            name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
+            abil: [data.abilities[0].ability.name, data.abilities[1].ability.name],
             src: data
          }))
     }
@@ -64,13 +69,20 @@ export default class App extends Component {
                 front: data.sprites.front_default,
                 back: data.sprites.back_default,
                 term: '',
+                name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
+                abil: [data.abilities[0].ability.name, data.abilities[1].ability.name],
                 src: data
             }))
         }
     }
 
-    render() { 
+    render() {
         console.log(this.state.src);
+
+        const renderInfo = this.state.info.map(item => {
+            return <li key={item}>{item}</li>
+        }) 
+
         return (
             <div className="container">
                 <Form poke={this.state.term} Click={this.Search.bind(this)} Change={e => {this.setState({term: e.target.value})}} Focus={() => {this.setState({term:''})}} />
@@ -84,6 +96,14 @@ export default class App extends Component {
                         <button onClick={this.Shiny.bind(this)}>shiny</button>
                     </div>
                 </div>
+                <div className="info-btn">
+                    <button onClick={() => this.setState({info: this.state.abil})}>Abilities</button>
+                    <button>Moves</button>
+                </div>
+                <Info 
+                    pokeName={this.state.name}
+                    info={renderInfo}
+                />
             </div>
         )
     }
