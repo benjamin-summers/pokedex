@@ -13,7 +13,9 @@ export default class App extends Component {
         back: null,
         name: '',
         abil: [],
+        moves: [],
         info: [],
+        count: 0,
         term: ''
      }
 
@@ -27,6 +29,7 @@ export default class App extends Component {
             shinyBack: data.sprites.back_shiny,
             name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
             abil: [data.abilities[0].ability.name, data.abilities[1].ability.name],
+            moves: [data.moves[0].move.name],
             src: data
          }))
     }
@@ -71,13 +74,14 @@ export default class App extends Component {
                 term: '',
                 name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
                 abil: [data.abilities[0].ability.name, data.abilities[1].ability.name],
+                moves: [data.moves[0].move.name, data.moves[1].move.name, data.moves[2].move.name, data.moves[3].move.name],
                 src: data
             }))
         }
     }
 
     render() {
-        console.log(this.state.src);
+        console.log(this.state.moves);
 
         const renderInfo = this.state.info.map(item => {
             return <li key={item}>{item}</li>
@@ -98,7 +102,7 @@ export default class App extends Component {
                 </div>
                 <div className="info-btn">
                     <button onClick={() => this.setState({info: this.state.abil})}>Abilities</button>
-                    <button>Moves</button>
+                    <button onClick={() => this.setState({info: this.state.moves})}>Moves</button>
                 </div>
                 <Info 
                     pokeName={this.state.name}
