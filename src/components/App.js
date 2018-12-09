@@ -73,7 +73,7 @@ export default class App extends Component {
                 back: data.sprites.back_default,
                 term: '',
                 name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
-                abil: [data.abilities[0].ability.name, data.abilities[1].ability.name],
+                abil: [data.abilities[0].ability.name],
                 moves: [data.moves[0].move.name, data.moves[1].move.name, data.moves[2].move.name, data.moves[3].move.name],
                 src: data
             }))
@@ -89,7 +89,6 @@ export default class App extends Component {
 
         return (
             <div className="container">
-                <Form poke={this.state.term} Click={this.Search.bind(this)} Change={e => {this.setState({term: e.target.value})}} Focus={() => {this.setState({term:''})}} />
                 <div className="pokes-screen">
                     <div className="pokes">
                         <img src={!this.state.front ? this.state.imgFront : this.state.front} alt={this.state.front} />
@@ -98,6 +97,7 @@ export default class App extends Component {
                     <div className="buttons">
                         <button onClick={this.Default.bind(this)}>default</button>
                         <button onClick={this.Shiny.bind(this)}>shiny</button>
+                        <Form poke={this.state.term} Click={this.Search.bind(this)} Change={e => {this.setState({term: e.target.value})}} Focus={() => {this.setState({term:''})}} />
                     </div>
                 </div>
                 <div className="info-btn">
@@ -105,6 +105,7 @@ export default class App extends Component {
                     <button onClick={() => this.setState({info: this.state.moves})}>Moves</button>
                 </div>
                 <Info 
+                    Class="controller"
                     pokeName={this.state.name}
                     info={renderInfo}
                 />

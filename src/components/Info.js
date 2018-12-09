@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Info = ({pokeName, info}) => {
+const Info = ({pokeName, info, Class}) => {
     return (
-        <div>
+        <div className={Class}>
             <div>
                 <p>{pokeName}</p>
             </div>
